@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Movie = (props) => {
+const Movie = ({ match }) => {
   const [movie, setMovie] = useState();
- 
+  const { params } = match;
+  const { id } = params;
+  console.log('match', match, 'params', params, 'id', id)
   useEffect(() => {
-    const id = 1;
+    // const id = 1;
     // change ^^^ that line and grab the id from the URL
     // You will NEED to add a dependency array to this effect hook
 
        axios
-        .get(`http://localhost:5000/api/movies/${id}`)
+        .get(`http://localhost:5000/api/movies/${id - 1}`)
         .then(response => {
+          console.log('inside axios movie', response.data)
           setMovie(response.data);
         })
         .catch(error => {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const MovieList = props => {
@@ -9,6 +10,7 @@ const MovieList = props => {
         .get('http://localhost:5000/api/movies')
         .then(response => {
           setMovies(response.data);
+          console.log('data', response.data)
         })
         .catch(error => {
           console.error('Server Error', error);
@@ -20,8 +22,8 @@ const MovieList = props => {
   
   return (
     <div className="movie-list">
-      {this.state.movies.map(movie => (
-        <MovieDetails key={movie.id} movie={movie} />
+      {movies.map(movie => (
+        <Link to={`/movies/${movie.id + 1}`} style={{color: 'black'}} key={movie.id}><MovieDetails movie={movie} /></Link>
       ))}
     </div>
   );
